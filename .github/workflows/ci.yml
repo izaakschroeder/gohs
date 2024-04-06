@@ -39,7 +39,7 @@ jobs:
 
       - name: Build
         run: |
-          ./build
+          ./build.sh
       
       - name: Test
         run: |
