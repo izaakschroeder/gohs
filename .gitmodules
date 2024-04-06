@@ -1,6 +1,3 @@
 [submodule "deps/vectorscan"]
 	path = deps/vectorscan
 	url = https://github.com/VectorCamp/vectorscan
-[submodule "deps/vectorscan/pcre-4.18"]
-	path = deps/vectorscan/pcre-4.18
-	url = https://github.com/jwilk-mirrors/pcre.git

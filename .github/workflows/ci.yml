@@ -38,6 +38,8 @@ jobs:
       - name: Build
         run: |
           cd deps/vectorscan
+          wget https://cfhcable.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.bz2
+          tar -xjf pcre-8.41.tar.bz2
           mkdir build
           cd build
           cmake \
