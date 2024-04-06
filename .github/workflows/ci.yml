@@ -25,7 +25,7 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-')
         run: |
           sudo apt-get update
-          sudo apt-get install -yq cmake clang libboost-all-dev ragel
+          sudo apt-get install -yq cmake clang libboost-all-dev ragel libpcap-dev
       
       - name: Install MacOS dependencies
         if: startsWith(matrix.os, 'macos-')
