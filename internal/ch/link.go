@@ -1,11 +1,7 @@
-//go:build chimera
-// +build chimera
-
 package ch
 
 /*
-#cgo pkg-config: --static libch
-#cgo linux LDFLAGS: -lm -lstdc++ -lpcre
-#cgo darwin LDFLAGS: -lpcre
+#cgo LDFLAGS: -L${SRCDIR}/../../dist/usr/lib -lchimera -lpcre
+#cgo CFLAGS: -I${SRCDIR}/../../dist/usr/include/hs
 */
 import "C"

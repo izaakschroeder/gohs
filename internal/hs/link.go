@@ -1,7 +1,5 @@
 package hs
 
-/*
-#cgo pkg-config: libhs
-#cgo linux LDFLAGS: -lm -lstdc++
-*/
+// #cgo LDFLAGS: -L${SRCDIR}/../../dist/usr/lib -lhs
+// #cgo CFLAGS: -I${SRCDIR}/../../dist/usr/include/hs
 import "C"

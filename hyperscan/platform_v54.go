@@ -1,6 +1,3 @@
-//go:build hyperscan_v54
-// +build hyperscan_v54
-
 package hyperscan
 
 import "github.com/izaakschroeder/gohs/internal/hs"

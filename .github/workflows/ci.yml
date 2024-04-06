@@ -18,7 +18,7 @@ jobs:
   vectorscan:
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-12]
+        os: [ubuntu-22.04, macos-14]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install Linux dependencies
@@ -26,10 +26,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -yq cmake clang libboost-all-dev ragel
+      
       - name: Install MacOS dependencies
         if: startsWith(matrix.os, 'macos-')
         run: |
           brew install cmake boost ragel
+      
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -37,23 +39,11 @@ jobs:
 
       - name: Build
         run: |
-          cd deps/vectorscan
-          wget https://cfhcable.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.bz2
-          tar -xjf pcre-8.41.tar.bz2
-          mkdir build
-          cd build
-          cmake \
-            ../ \
-            -DBUILD_STATIC_LIBS=on \
-            -DPCRE_BUILD_SOURCE=on \
-            -DCMAKE_CXX_FLAGS='-Wno-unqualified-std-cast-call' \
-            -DCMAKE_BUILD_TYPE=Release
-          make install DESTDIR=./tmp
-      - name: Push artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: "vectorscan"
-          path: "./tmp"
+          ./build
+      
+      - name: Test
+        run: |
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
  
   golangci:
     name: lint
