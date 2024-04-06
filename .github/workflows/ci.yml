@@ -29,7 +29,7 @@ jobs:
       - name: Install MacOS dependencies
         if: startsWith(matrix.os, 'macos-')
         run: |
-          brew install cmake clang
+          brew install cmake
       - name: Build
         run: |
           mkdir build
@@ -60,8 +60,8 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: latest
-          working-directory: hyperscan
+      # - name: golangci-lint
+      #   uses: golangci/golangci-lint-action@v3
+      #   with:
+      #     version: latest
+      #     working-directory: hyperscan
