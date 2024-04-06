@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 // A type containing error details that is returned by the compile calls on failure.

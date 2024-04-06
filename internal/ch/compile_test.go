@@ -8,9 +8,9 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/chimera"
-	"github.com/flier/gohs/internal/ch"
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/chimera"
+	"github.com/izaakschroeder/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 func TestCompileAPI(t *testing.T) {

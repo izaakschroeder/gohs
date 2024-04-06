@@ -1,6 +1,6 @@
 package hyperscan
 
-import "github.com/flier/gohs/internal/hs"
+import "github.com/izaakschroeder/gohs/internal/hs"
 
 // VectoredScanner is the vectored regular expression scanner.
 type VectoredScanner interface {

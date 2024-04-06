@@ -9,7 +9,7 @@
  *
  * Build instructions:
  *
- *     go build github.com/flier/gohs/examples/pcapscan
+ *     go build github.com/izaakschroeder/gohs/examples/pcapscan
  *
  * Usage:
  *
@@ -39,10 +39,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/flier/gohs/hyperscan"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
+	"github.com/izaakschroeder/gohs/hyperscan"
 )
 
 var (

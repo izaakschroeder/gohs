@@ -8,7 +8,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/chimera"
+	"github.com/izaakschroeder/gohs/chimera"
 )
 
 type (

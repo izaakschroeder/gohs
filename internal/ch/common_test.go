@@ -9,7 +9,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 func TestVersion(t *testing.T) {

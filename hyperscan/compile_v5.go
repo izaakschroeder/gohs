@@ -4,7 +4,7 @@
 package hyperscan
 
 import (
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 const (

@@ -24,7 +24,7 @@ The golang performance testing support `hyperscan` and `regexp` package.
 $ cd go && go test -bench .
 goos: darwin
 goarch: amd64
-pkg: github.com/flier/gohs/bench/go
+pkg: github.com/izaakschroeder/gohs/bench/go
 cpu: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz
 BenchmarkHyperscanBlockScan/Easy0/16-8         	 1000000	      1079 ns/op	  14.83 MB/s
 BenchmarkHyperscanBlockScan/Easy0/32-8         	 1449081	       823.3 ns/op	  38.87 MB/s
@@ -135,7 +135,7 @@ BenchmarkRegexpMatch/Hard1/32K-8               	     153	   9048851 ns/op	   3.6
 BenchmarkRegexpMatch/Hard1/1M-8                	       5	 240529097 ns/op	   4.36 MB/s
 BenchmarkRegexpMatch/Hard1/32M-8               	       1	8055742592 ns/op	   4.17 MB/s
 PASS
-ok  	github.com/flier/gohs/bench/go	171.939s
+ok  	github.com/izaakschroeder/gohs/bench/go	171.939s
 ```
 
 ## C++ benchmarks

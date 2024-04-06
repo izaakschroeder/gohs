@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/flier/gohs/chimera"
+	"github.com/izaakschroeder/gohs/chimera"
 )
 
 func BenchmarkChimeraBlockScan(b *testing.B) {

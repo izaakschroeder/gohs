@@ -6,7 +6,7 @@ package chimera
 import (
 	"runtime"
 
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 // Scratch is a Chimera scratch space.

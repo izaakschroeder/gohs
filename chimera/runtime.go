@@ -4,7 +4,7 @@
 package chimera
 
 import (
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 // Callback return value used to tell the Chimera matcher what to do after processing this match.
