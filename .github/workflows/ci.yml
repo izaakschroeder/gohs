@@ -32,6 +32,7 @@ jobs:
           brew install cmake
       - name: Build
         run: |
+          cd deps/vectorscan
           mkdir build
           cd build
           cmake \
