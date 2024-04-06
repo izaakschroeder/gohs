@@ -30,6 +30,11 @@ jobs:
         if: startsWith(matrix.os, 'macos-')
         run: |
           brew install cmake
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
       - name: Build
         run: |
           cd deps/vectorscan
