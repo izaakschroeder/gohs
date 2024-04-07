@@ -25,12 +25,12 @@ jobs:
           - os: linux
             arch: amd64
             runner: ubuntu-22.04
-          - os: darwin
-            arch: arm64
-            runner: ubuntu-22.04
-          - os: darwin
-            arch: amd64
-            runner: ubuntu-22.04
+          # - os: darwin
+          #   arch: arm64
+          #   runner: ubuntu-22.04
+          # - os: darwin
+          #   arch: amd64
+          #   runner: ubuntu-22.04
           - os: windows
             arch: amd64
             runner: ubuntu-22.04
