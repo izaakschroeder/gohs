@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 set -euo pipefail
 
-ROOT=$(realpath $(dirname "$0"))
+ROOT=$(realpath "$(dirname "$0")")
 
 cd $ROOT
 
