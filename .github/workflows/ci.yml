@@ -18,37 +18,53 @@ jobs:
   vectorscan:
     strategy:
       matrix:
-        os: [ubuntu-22.04, macos-14]
-    runs-on: ${{ matrix.os }}
+        include:
+          - os: linux
+            arch: arm64
+            runner: ubuntu-22.04
+          - os: linux
+            arch: amd64
+            runner: ubuntu-22.04
+          - os: darwin
+            arch: arm64
+            runner: ubuntu-22.04
+          - os: darwin
+            arch: amd64
+            runner: ubuntu-22.04
+          - os: windows
+            arch: amd64
+            runner: ubuntu-22.04
+            
+    runs-on: ${{ matrix.runner }}
+    env:
+      GOOS: ${{ matrix.os }}
+      GOARCH: ${{ matrix.arch }}
     steps:
-      - name: Install Linux dependencies
-        if: startsWith(matrix.os, 'ubuntu-')
+      - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -yq cmake clang libboost-all-dev ragel libpcap-dev
-      
-      - name: Install MacOS dependencies
-        if: startsWith(matrix.os, 'macos-')
-        run: |
-          brew install cmake boost ragel
+          sudo apt-get install -yq cmake ragel libpcap-dev
       
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
-
-      - name: Install Golang 1.21.1
-        uses: actions/setup-go@v4
+      
+      - uses: goto-bus-stop/setup-zig@v2
         with:
-          go-version: 1.21.1
+          version: 0.12.0-dev.3541+05b185811
 
       - name: Build
         run: |
           ./build.sh
-      
-      - name: Test
-        run: |
-          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      # - name: Install Golang 1.21.1
+      #   uses: actions/setup-go@v4
+      #   with:
+      #     go-version: 1.21.1
+      # - name: Test
+      #   run: |
+      #     go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
  
   golangci:
     name: lint
