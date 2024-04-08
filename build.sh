@@ -10,7 +10,7 @@ GOOS="${GOOS:-$(go env GOOS)}"
 GOARCH="${GOARCH:-$(go env GOARCH)}"
 TAG="${GOOS}-${GOARCH}"
 BUILD="${ROOT}/build/${TAG}"
-export CROSS_SYS="${ROOT}/dist/${TAG}"
+export CROSS_SYS="${BUILD}/sysroot"
 export PKG_CONFIG_LIBDIR="${CROSS_SYS}/usr/lib/pkgconfig:${CROSS_SYS}/usr/share/pkgconfig"
 export PKG_CONFIG_DIR=""
 export PKG_CONFIG_SYSROOT_DIR="${CROSS_SYS}"
@@ -111,3 +111,12 @@ make -j3 install DESTDIR="${CROSS_SYS}"
 # even though PCRE is built statically it's not an install target for
 # some reason so we copy it manually
 cp lib/libpcre.a "${CROSS_SYS}/usr/lib/"
+
+# manually move required files
+DIST="${ROOT}/dist/${TAG}"
+mkdir -p "${DIST}/lib"
+mkdir -p "${DIST}/include"
+cp "${CROSS_SYS}/usr/lib/libchimera.a" "${DIST}/lib"
+cp "${CROSS_SYS}/usr/lib/libhs.a" "${DIST}/lib"
+cp "${CROSS_SYS}/usr/lib/libpcre.a" "${DIST}/lib"
+cp -R "${CROSS_SYS}/usr/include/hs" "${DIST}/include"
