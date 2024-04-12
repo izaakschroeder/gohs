@@ -19,6 +19,6 @@ package hs
 #cgo windows,amd64 LDFLAGS: -L${SRCDIR}/../../dist/windows-amd64/lib
 #cgo windows,amd64 CFLAGS: -I${SRCDIR}/../../dist/windows-amd64/include/hs
 
-#cgo LDFLAGS: -lhs -lc++
+#cgo LDFLAGS: -lhs -lc++ -lc++abi
 */
 import "C"
