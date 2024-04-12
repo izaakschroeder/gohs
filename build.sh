@@ -22,7 +22,7 @@ case "${TAG}" in
     ;;
   darwin-amd64)
     export ZTARGET="x86_64-macos"
-    export ZCPU="x86_64_v4"
+    export ZCPU="x86_64_v3"
     ;;
   linux-arm64)
     export ZTARGET="aarch64-linux"
@@ -30,7 +30,7 @@ case "${TAG}" in
     ;;
   linux-amd64)
     export ZTARGET="x86_64-linux"
-    export ZCPU="x86_64_v4"
+    export ZCPU="x86_64_v3"
     ;;
   windows-arm64)
     export ZTARGET="aarch64-windows-gnu"
@@ -38,7 +38,7 @@ case "${TAG}" in
     ;;
   windows-amd64)
     export ZTARGET="x86_64-windows-gnu"
-    export ZCPU="x86_64_v4"
+    export ZCPU="x86_64_v3"
     ;;
   *)
     exit 1
