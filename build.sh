@@ -49,6 +49,7 @@ export CC="${ROOT}/bin/zig-cc"
 export CXX="${ROOT}/bin/zig-c++"
 export AR="${ROOT}/bin/zig-ar"
 export RANLIB="${ROOT}/bin/zig-ranlib"
+export ZIG_GLOBAL_CACHE_DIR="${BUILD}/zig-cache"
 
 mkdir -p "${BUILD}/boost"
 cd "${BUILD}/boost"
@@ -120,3 +121,6 @@ cp "${CROSS_SYS}/usr/lib/libchimera.a" "${DIST}/lib"
 cp "${CROSS_SYS}/usr/lib/libhs.a" "${DIST}/lib"
 cp "${CROSS_SYS}/usr/lib/libpcre.a" "${DIST}/lib"
 cp -R "${CROSS_SYS}/usr/include/hs" "${DIST}/include"
+
+# zig builds libc++ which we will need eventually
+find "${ZIG_GLOBAL_CACHE_DIR}" \( -name libc++.a -o -name libc++abi.a -o -name libcompiler_rt.a \) -exec cp "{}" "${DIST}/lib" \;
