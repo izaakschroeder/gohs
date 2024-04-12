@@ -123,4 +123,5 @@ cp "${CROSS_SYS}/usr/lib/libpcre.a" "${DIST}/lib"
 cp -R "${CROSS_SYS}/usr/include/hs" "${DIST}/include"
 
 # zig builds libc++ which we will need eventually
-find "${ZIG_GLOBAL_CACHE_DIR}" \( -name 'libc++.*' -o -name 'libc++abi.*' -o -name 'libcompiler_rt.*' \) -exec cp "{}" "${DIST}/lib" \;
+find "${ZIG_GLOBAL_CACHE_DIR}" \( -name libc++.a -o -name libc++abi.a -o -name libcompiler_rt.a \) -exec cp "{}" "${DIST}/lib" \;
+find "${ZIG_GLOBAL_CACHE_DIR}" \( -name c++.lib -o -name c++abi.lib -o -name compiler_rt.lib \) -exec cp "{}" "${DIST}/lib" \;
