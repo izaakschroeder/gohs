@@ -124,4 +124,13 @@ cp -R "${CROSS_SYS}/usr/include/hs" "${DIST}/include"
 
 # zig builds libc++ which we will need eventually
 find "${ZIG_GLOBAL_CACHE_DIR}" \( -name libc++.a -o -name libc++abi.a -o -name libcompiler_rt.a \) -exec cp "{}" "${DIST}/lib" \;
-find "${ZIG_GLOBAL_CACHE_DIR}" \( -name c++.lib -o -name c++abi.lib -o -name compiler_rt.lib \) -exec cp "{}" "${DIST}/lib" \;
+
+# zig's windows libc++ is built as PE files or something that golang
+# linker does not like. so we convert into normal archive
+LIBS=$(find "${ZIG_GLOBAL_CACHE_DIR}" \( -name c++.lib -o -name c++abi.lib -o -name compiler_rt.lib \))
+for LIB in $LIBS; do
+  NAME=$(basename -s .lib "${LIB}")
+  OUT="${DIST}/lib/lib${NAME}.a"
+  echo "building ${OUT}"
+  nm "${LIB}" | grep '^/' | sed 's/.$//' | zig ar r "${DIST}/lib/lib${NAME}.a" @/dev/stdin
+done
