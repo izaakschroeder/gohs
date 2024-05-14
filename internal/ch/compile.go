@@ -1,6 +1,3 @@
-//go:build chimera
-// +build chimera
-
 package ch
 
 import (
@@ -10,7 +7,7 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 // #include <ch.h>

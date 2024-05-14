@@ -5,8 +5,8 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/hyperscan"
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 //nolint:funlen

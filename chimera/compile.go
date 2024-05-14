@@ -1,6 +1,3 @@
-//go:build chimera
-// +build chimera
-
 package chimera
 
 import (
@@ -8,9 +5,9 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/flier/gohs/hyperscan"
-	"github.com/flier/gohs/internal/ch"
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 // A type containing error details that is returned by the compile calls on failure.

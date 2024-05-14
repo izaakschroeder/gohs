@@ -12,7 +12,7 @@
  *
  * Build instructions:
  *
- *     go build github.com/flier/gohs/examples/simplegrep
+ *     go build github.com/izaakschroeder/gohs/examples/simplegrep
  *
  * Usage:
  *
@@ -36,7 +36,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/flier/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/hyperscan"
 )
 
 var (

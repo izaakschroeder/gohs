@@ -1,6 +1,3 @@
-//go:build !hyperscan_v4
-// +build !hyperscan_v4
-
 package hyperscan_test
 
 import (
@@ -8,7 +5,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/hyperscan"
 )
 
 func TestDatabaseBuilderV5(t *testing.T) {

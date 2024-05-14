@@ -1,6 +1,3 @@
-//go:build chimera
-// +build chimera
-
 package chimera_test
 
 import (
@@ -8,8 +5,8 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/chimera"
-	"github.com/flier/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/chimera"
+	"github.com/izaakschroeder/gohs/hyperscan"
 )
 
 func TestCompileFlag(t *testing.T) {

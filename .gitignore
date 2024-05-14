@@ -7,7 +7,6 @@
 _obj
 _test
 .idea
-.vscode
 build
 
 # Architecture specific extensions/prefixes
@@ -27,3 +26,5 @@ _testmain.go
 *.prof
 
 *.out
+
+dist

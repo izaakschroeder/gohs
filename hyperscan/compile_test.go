@@ -6,7 +6,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/hyperscan"
 )
 
 func TestCompileFlag(t *testing.T) {

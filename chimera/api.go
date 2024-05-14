@@ -1,12 +1,9 @@
-//go:build chimera
-// +build chimera
-
 package chimera
 
 import (
 	"fmt"
 
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 // Match reports whether the byte slice b contains any match of the regular expression pattern.

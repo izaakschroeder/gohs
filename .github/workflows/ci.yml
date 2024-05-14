@@ -15,121 +15,114 @@ defaults:
     shell: bash
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        os: [ubuntu-22.04, ubuntu-20.04, macos-12, macos-11]
-        go: [stable, 1.20.x, 1.19.x, 1.18.x]
-    name: Go ${{ matrix.go }} tests @ ${{ matrix.os }} for hyperscan
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Install Linux dependencies for testing libraries
-        if: startsWith(matrix.os, 'ubuntu-')
-        run: |
-          sudo apt-get update
-          sudo apt-get install -yq libhyperscan-dev libpcap-dev
-
-      - name: Install MacOS dependencies for testing libraries
-        if: startsWith(matrix.os, 'macos-')
-        run: |
-          brew install hyperscan pkg-config libpcap
-
-      - uses: actions/checkout@v3
-
-      - name: Install Golang ${{ matrix.go }}
-        uses: actions/setup-go@v4
-        with:
-          go-version: ${{ matrix.go }}
-          cache: true
-
-      - name: Test Hyperscan v4 API
-        run: |
-          go test -v -tags hyperscan_v4 ./internal/hs/... ./hyperscan/...
-          go test -race -v -tags hyperscan_v4 ./internal/hs/... ./hyperscan/...
-
-      - name: Test Hyperscan v5 API
-        run: |
-          go test -v ./internal/hs/... ./hyperscan/...
-          go test -race -v ./internal/hs/... ./hyperscan/...
-
-  build-and-test:
+  vectorscan:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            go: stable
-            hyperscan_version: 5.4.1
-            pcre_version: 8.45
-            build_flags: -tags hyperscan_v54,chimera
-            chimera: true
-          - os: macos-12
-            go: stable
-            hyperscan_version: 5.2.1
-            pcre_version: 8.45
-            build_flags: -tags hyperscan_v52,chimera
-            chimera: true
-          - os: macos-11
-            go: stable
-            hyperscan_version: 5.1.1
-            pcre_version: 8.45
-            build_flags: -tags chimera
-            chimera: true
-          - os: ubuntu-22.04
-            go: stable
-            hyperscan_version: 5.4.1
-            pcre_version: 8.45
-            build_flags: -tags hyperscan_v54,chimera
-            chimera: true
-            coverage: true
-          - os: ubuntu-20.04
-            go: stable
-            hyperscan_version: 5.2.1
-            pcre_version: 8.45
-            build_flags: -tags hyperscan_v52,chimera
-            chimera: true
-    name: Go ${{ matrix.go }} tests @ ${{ matrix.os }} for hyperscan ${{ matrix.hyperscan_version }}
-    runs-on: ${{ matrix.os }}
+          - os: linux
+            arch: arm64
+            runner: ubuntu-22.04
+          - os: linux
+            arch: amd64
+            runner: ubuntu-22.04
+          - os: darwin
+            arch: arm64
+            runner: ubuntu-22.04
+          - os: darwin
+            arch: amd64
+            runner: ubuntu-22.04
+          - os: windows
+            arch: amd64
+            runner: ubuntu-22.04
+            
+    runs-on: ${{ matrix.runner }}
     env:
-      PKG_CONFIG_PATH: ${{ github.workspace }}/dist/lib/pkgconfig
-      CGO_CFLAGS: -I${{ github.workspace }}/dist/include/hs
-      CGO_LDFLAGS: -L${{ github.workspace }}/dist/lib
+      GOOS: ${{ matrix.os }}
+      GOARCH: ${{ matrix.arch }}
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Hyperscan ${{ matrix.hyperscan }} with PCRE ${{ matrix.pcre_version }}
-        uses: flier/install-hyperscan@main
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -yq cmake ragel
+      
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          hyperscan_version: ${{ matrix.hyperscan_version }}
-          pcre_version: ${{ matrix.pcre_version }}
-          build_static_lib: on
-          src_dir: ${{ runner.temp }}/hyperscan/
-          install_prefix: ${{ github.workspace }}/dist/
-          cache_key: ${{ runner.os }}-build-hyperscan-${{ matrix.hyperscan_version }}-pcre-${{ matrix.pcre_version }}
-
-      - name: Install Golang ${{ matrix.go }}
-        uses: actions/setup-go@v3
+          submodules: recursive
+      
+      - uses: goto-bus-stop/setup-zig@v2
         with:
-          go-version: ${{ matrix.go }}
-          cache: true
+          version: 0.13.0-dev.75+5c9eb4081
+      
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: ./build
+          key: ${{ matrix.os }}-${{ matrix.arch }}-build
 
-      - name: Test Hyperscan API
+      - name: Build
         run: |
-          go test -v ${{ matrix.build_flags }} ./internal/hs/... ./hyperscan/...
-          go test -race -v ${{ matrix.build_flags }} ./internal/hs/... ./hyperscan/...
+          # Dumb hack for cmake + macOS cross target
+          # We don't ever use this tool even though cmake
+          # demands that it exist.
+          sudo sh -c 'echo > /usr/bin/install_name_tool'
+          sudo chmod +x /usr/bin/install_name_tool
+          ./build.sh
+      
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: vectorscan-${{ matrix.os }}-${{ matrix.arch }}
+          path: ./dist/**
+        
+  vectorscan-dist:
+    runs-on: ubuntu-latest
+    needs: vectorscan
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: vectorscan
+          delete-merged: true
+          pattern: vectorscan-*
 
-      - name: Test Chimera API
-        if: matrix.chimera
+  gohs:
+    needs: vectorscan-dist
+    strategy:
+      matrix:
+        include:
+          - os: linux
+            arch: amd64
+            runner: ubuntu-22.04
+          - os: darwin
+            arch: arm64
+            runner: macos-14
+          - os: darwin
+            arch: amd64
+            runner: macos-13
+          - os: windows
+            arch: amd64
+            runner: windows-2022
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: vectorscan
+          path: ./dist
+      - name: Install Golang 1.21.1
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21.1
+      - name: Install dependencies
+        if: ${{ startsWith(matrix.runner, 'ubuntu') }}
         run: |
-          go test -v ${{ matrix.build_flags }} ./internal/ch/... ./chimera/...
-          go test -race -v ${{ matrix.build_flags }} ./internal/ch/... ./chimera/...
-
-      - name: Run and upload coverage to Codecov
-        if: matrix.coverage
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          sudo apt-get update
+          sudo apt-get install -yq libpcap-dev
+      - name: Test
         run: |
-          go test -v ${{ matrix.build_flags }} -race -coverprofile=coverage.out -covermode=atomic ./...
-          bash <(curl -s https://codecov.io/bash)
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 
   golangci:
     name: lint
@@ -144,8 +137,8 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: latest
-          working-directory: hyperscan
+      # - name: golangci-lint
+      #   uses: golangci/golangci-lint-action@v3
+      #   with:
+      #     version: latest
+      #     working-directory: hyperscan

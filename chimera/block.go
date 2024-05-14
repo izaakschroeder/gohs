@@ -1,12 +1,9 @@
-//go:build chimera
-// +build chimera
-
 package chimera
 
 import (
 	"errors"
 
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 // BlockScanner is the block (non-streaming) regular expression scanner.

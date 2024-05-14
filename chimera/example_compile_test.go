@@ -1,13 +1,10 @@
-//go:build chimera
-// +build chimera
-
 package chimera_test
 
 import (
 	"fmt"
 	"strings"
 
-	"github.com/flier/gohs/chimera"
+	"github.com/izaakschroeder/gohs/chimera"
 )
 
 // This example demonstrates construct and match a pattern.

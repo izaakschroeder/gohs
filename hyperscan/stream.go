@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 // Stream exist in the Hyperscan library so that pattern matching state can be maintained

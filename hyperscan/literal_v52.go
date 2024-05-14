@@ -1,6 +1,3 @@
-//go:build hyperscan_v52 || hyperscan_v54
-// +build hyperscan_v52 hyperscan_v54
-
 package hyperscan
 
 import (
@@ -8,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 type Literals []*Literal

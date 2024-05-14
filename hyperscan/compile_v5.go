@@ -1,10 +1,7 @@
-//go:build !hyperscan_v4
-// +build !hyperscan_v4
-
 package hyperscan
 
 import (
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 const (

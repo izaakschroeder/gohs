@@ -3,7 +3,7 @@ package hyperscan
 import (
 	"errors"
 
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 // ErrTooManyMatches means too many matches.

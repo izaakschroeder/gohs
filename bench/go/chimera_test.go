@@ -1,13 +1,10 @@
-//go:build chimera
-// +build chimera
-
 package scan_test
 
 import (
 	"strings"
 	"testing"
 
-	"github.com/flier/gohs/chimera"
+	"github.com/izaakschroeder/gohs/chimera"
 )
 
 func BenchmarkChimeraBlockScan(b *testing.B) {

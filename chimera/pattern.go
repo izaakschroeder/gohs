@@ -1,6 +1,3 @@
-//go:build chimera
-// +build chimera
-
 package chimera
 
 import (
@@ -10,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 // Pattern is a matching pattern.

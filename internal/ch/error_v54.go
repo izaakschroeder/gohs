@@ -1,6 +1,3 @@
-//go:build hyperscan_v54 && chimera
-// +build hyperscan_v54,chimera
-
 package ch
 
 // #include <ch.h>

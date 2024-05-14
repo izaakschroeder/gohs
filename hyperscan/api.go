@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/flier/gohs/internal/hs"
+	"github.com/izaakschroeder/gohs/internal/hs"
 )
 
 // Match reports whether the byte slice b contains any match of the regular expression pattern.

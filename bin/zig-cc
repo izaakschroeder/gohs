@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+zig cc -s -target "${ZTARGET}" -ofmt=elf -mcpu="${ZCPU}" "$@"

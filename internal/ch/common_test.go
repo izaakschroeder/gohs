@@ -1,6 +1,3 @@
-//go:build chimera
-// +build chimera
-
 package ch_test
 
 import (
@@ -9,7 +6,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/internal/ch"
+	"github.com/izaakschroeder/gohs/internal/ch"
 )
 
 func TestVersion(t *testing.T) {

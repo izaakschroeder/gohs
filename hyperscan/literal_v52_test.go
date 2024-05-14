@@ -1,6 +1,3 @@
-//go:build hyperscan_v52 || hyperscan_v54
-// +build hyperscan_v52 hyperscan_v54
-
 package hyperscan_test
 
 import (
@@ -8,7 +5,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"github.com/flier/gohs/hyperscan"
+	"github.com/izaakschroeder/gohs/hyperscan"
 )
 
 //nolint:funlen

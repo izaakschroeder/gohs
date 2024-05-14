@@ -1,12 +1,9 @@
-//go:build chimera
-// +build chimera
-
 package chimera_test
 
 import (
 	"fmt"
 
-	"github.com/flier/gohs/chimera"
+	"github.com/izaakschroeder/gohs/chimera"
 )
 
 func ExampleBlockScanner() {
