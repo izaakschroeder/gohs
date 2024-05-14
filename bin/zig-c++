@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-zig c++ -s -target "${ZTARGET}" -mcpu="${ZCPU}" "$@"
+zig c++ -s -target "${ZTARGET}" -ofmt=elf -mcpu="${ZCPU}" "$@"
